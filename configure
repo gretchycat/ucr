@@ -1,0 +1,50 @@
+#!/bin/sh
+MAKE="x"
+SDL="x"
+PREFIX="/usr/games/ucr"
+for i in $*; do
+	var=`echo $i|cut -f1 -d'='`
+	value=`echo $i|cut -f2 -d'='`
+	if [ "x$var" = "x--PREFIX" ]; then
+		PREFIX=$value
+	fi
+done
+escvalue=`echo $PREFIX|sed -e 's/\\//\\\\\\//g'`
+echo -n "checking for make... "
+if [ -x "`which gmake 2>/dev/null`" ]
+then 
+echo gmake 
+MAKE=gmake
+else
+if [ -x "`which make 2>/dev/null`" ]
+then
+echo make
+MAKE=make
+fi
+fi
+echo -n "checking for sdl-config... "
+if [ -x "`which sdl11-config 2>/dev/null`" ]
+then 
+echo sdl11-config
+SDL=sdl11-config
+cat Makefile.freebsd|sed -e "s/xPREFIXx/$escvalue/g"> Makefile
+else
+if [ -x "`which sdl-config 2>/dev/null`" ]
+then
+echo sdl-config
+SDL=sdl-config
+cat Makefile.linux|sed -e "s/xPREFIXx/$escvalue/g"> Makefile
+fi
+fi
+if [ $MAKE = x ]
+then 
+echo CANNOT FIND make
+exit 1
+fi
+if [ $SDL = x ]
+then 
+echo CANNOT FIND libSDL
+exit 1
+fi
+echo Done
+echo you may now run $MAKE

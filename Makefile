@@ -1,0 +1,110 @@
+#!/usr/bin/make
+# Lines starting with the pound sign are comments.
+#
+# These are the two options that may need tweaking
+
+VERSION = 0.1.3
+EXECUTABLE = ./ucr
+LINKCC = $(CXX)
+STRIP = /usr/bin/strip
+PREFIX = /usr/games/ucr
+
+# You can modify the below as well, but probably
+# won't need to.
+#
+
+# CC is for the name of the C compiler. CPPFLAGS denotes pre-processor
+# flags, such as -I options. CFLAGS denotes flags for the C compiler.
+# CXXFLAGS denotes flags for the C++ compiler. You may add additional
+# settings here, such as PFLAGS, if you are using other languages such
+# as Pascal.
+
+
+LDFLAGS = -DLINUX `sdl-config --cflags --libs` -L/usr/X11R6/lib -I/usr/local/include/SDL_mixer  -I/usr/local/include/SDL_image -lSDL_mixer -lSDL_image
+
+
+CC = gcc
+CFLAGS = -Wall -O3 -ffast-math `sdl-config --cflags` -I/usr/local/include/SDL_mixer -I/usr/local/include/SDL_image
+
+CXX = g++
+CXXFLAGS = 
+CPPFLAGS = $(CFLAGS)
+
+
+SRCS := $(wildcard *.c) $(wildcard *.cpp) $(wildcard *.C) \
+	$(wildcard u?/*.c) $(wildcard u?/*.cpp) $(wildcard u?/*.C)  
+OBJS :=	$(patsubst %.c,%.o,$(wildcard *.c)) \
+	$(patsubst %.c,%.o,$(wildcard u?/*.c)) \
+	$(patsubst %.cpp,%.o,$(wildcard *.cpp)) \
+	$(patsubst %.cpp,%.o,$(wildcard u?/*.cpp)) \
+	$(patsubst %.C,%.o,$(wildcard *.C)) \
+	$(patsubst %.C,%.o,$(wildcard u?/*.C))
+DEPS := $(patsubst %.o,%.d,$(OBJS))
+
+# "all" is the default target. Simply make it point to myprogram.
+
+all: $(EXECUTABLE)
+
+# Define the components of the program, and how to link them together.
+# These components are defined as dependencies; that is, they must be
+# made up-to-date before the code is linked.
+
+$(EXECUTABLE): $(DEPS) $(OBJS)
+	$(LINKCC) $(LDFLAGS) -o $(EXECUTABLE) $(OBJS)
+	$(STRIP) $(EXECUTABLE)
+	
+# Specify that the dependency files depend on the C source files.
+
+%.d: %.c
+	$(CC) -M $(CPPFLAGS) $< > $@
+	$(CC) -M $(CPPFLAGS) $< | sed s/\\.o/.d/ >> $@
+
+%.d: %.cpp
+	$(CXX) -M $(CPPFLAGS) $< > $@
+	$(CXX) -M $(CPPFLAGS) $< | sed s/\\.o/.d/ >> $@
+
+%.d: %.C
+	$(CXX) -M $(CPPFLAGS) $< > $@
+	$(CXX) -M $(CPPFLAGS) $< | sed s/\\.o/.d/ >> $@
+
+# Specify that all .o files depend on .c files, and indicate how
+# the .c files are converted (compiled) to the .o files.
+
+clean:
+	-rm $(OBJS) $(DEPS) $(EXECUTABLE) *~
+
+distclean:
+	-rm $(OBJS) $(DEPS) $(EXECUTABLE) *~ Makefile
+
+explain:
+	@echo "The following information represents your program:"
+	@echo "Final executable name: $(EXECUTABLE)"
+	@echo "Source files:     $(SRCS)"
+	@echo "Object files:     $(OBJS)"
+	@echo "Dependency files:   $(DEPS)"
+
+depend: $(DEPS)
+	@echo "Dependencies are now up-to-date."
+
+-include $(DEPS)
+
+install:
+	mkdir -p $(PREFIX)
+	cp -R $(EXECUTABLE) data etc pixmaps $(PREFIX)
+#	ln -sf $(PREFIX)/ucr /usr/bin/
+	mkdir -p $(PREFIX)/docs
+	cp README CHANGELOG TODO $(PREFIX)/docs
+	cp -R etc $(PREFIX)
+#	rm -rf /etc/ucr
+#	ln -sf $(PREFIX)/etc /etc/ucr
+	@echo "ucr is now installed in $(PREFIX)."
+	@echo "check ${PREFIX}/etc/ucr/ucr.conf for the game paths and options."
+	
+archive: distclean
+	-rm -rf etc/*~ DEADJOE ../ucr-$(VERSION) ucr-$(VERSION) ucr-$(VERSION).tar.gz
+	cp -R ../ucr ../ucr-$(VERSION)
+	mv ../ucr-$(VERSION) .
+	tar -zcvf ucr-$(VERSION).tar.gz ucr-$(VERSION)
+	-rm -rf ucr-$(VERSION)
+	@echo ucr-$(VERSION).tar.gz is ready.
+	

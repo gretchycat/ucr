@@ -1,0 +1,91 @@
+# Lines starting with the pound sign are comments.
+#
+# These are the two options that may need tweaking
+
+VERSION = 0.1.3
+EXECUTABLE = ./ucr.exe
+LINKCC = $(CXX)
+STRIP = /usr/bin/strip
+PREFIX= winucr
+
+# You can modify the below as well, but probably
+# won't need to.
+#
+
+# CC is for the name of the C compiler. CPPFLAGS denotes pre-processor
+# flags, such as -I options. CFLAGS denotes flags for the C compiler.
+# CXXFLAGS denotes flags for the C++ compiler. You may add additional
+# settings here, such as PFLAGS, if you are using other languages such
+# as Pascal.
+
+LDFLAGS = -I/opt/xmingw/include -I/opt/xmingw/include/SDL -D_REENTRANT -L/opt/xmingw/lib -Wl,-rpath,/opt/xmingw/lib -lSDL -lSDL_mixer -lSDL_image
+
+CC = /opt/xmingw/bin/i386-mingw32msvc-gcc
+CFLAGS = -Wall -O3 -ffast-math -I/opt/xmingw/include -I/opt/xmingw/include/SDL -D_REENTRANT
+
+CXX = /opt/xmingw/bin/i386-mingw32msvc-g++
+CXXFLAGS = 
+CPPFLAGS = $(CFLAGS)
+
+SRCS := $(wildcard *.c) $(wildcard *.cpp) $(wildcard *.C)
+OBJS := $(patsubst %.c,%.o,$(wildcard *.c)) \
+	$(patsubst %.cpp,%.o,$(wildcard *.cpp)) \
+	$(patsubst %.C,%.o,$(wildcard *.C))
+DEPS := $(patsubst %.o,%.d,$(OBJS))
+
+# "all" is the default target. Simply make it point to myprogram.
+
+all: $(EXECUTABLE)
+
+# Define the components of the program, and how to link them together.
+# These components are defined as dependencies; that is, they must be
+# made up-to-date before the code is linked.
+
+$(EXECUTABLE): $(DEPS) $(OBJS)
+	$(LINKCC) $(LDFLAGS) -o $(EXECUTABLE) $(OBJS)
+	$(STRIP) $(EXECUTABLE)
+# Specify that the dependency files depend on the C source files.
+
+%.d: %.c
+	$(CC) -M $(CPPFLAGS) $< > $@
+	$(CC) -M $(CPPFLAGS) $< | sed s/\\.o/.d/ >> $@
+
+%.d: %.cpp
+	$(CXX) -M $(CPPFLAGS) $< > $@
+	$(CXX) -M $(CPPFLAGS) $< | sed s/\\.o/.d/ >> $@
+
+%.d: %.C
+	$(CXX) -M $(CPPFLAGS) $< > $@
+	$(CXX) -M $(CPPFLAGS) $< | sed s/\\.o/.d/ >> $@
+
+# Specify that all .o files depend on .c files, and indicate how
+# the .c files are converted (compiled) to the .o files.
+
+clean:
+	-rm $(OBJS) $(EXECUTABLE) $(DEPS) *~
+
+explain:
+	@echo "The following information represents your program:"
+	@echo "Final executable name: $(EXECUTABLE)"
+	@echo "Source files:     $(SRCS)"
+	@echo "Object files:     $(OBJS)"
+	@echo "Dependency files:   $(DEPS)"
+
+depend: $(DEPS)
+	@echo "Dependencies are now up-to-date."
+
+-include $(DEPS)
+
+install:
+	mkdir -p $(PREFIX)
+	cp -R $(EXECUTABLE) data $(PREFIX)
+	cp -R etc pixmaps $(PREFIX)
+	cp /opt/xmingw/lib/SDL.dll /opt/xmingw/lib/SDL_image.dll /opt/xmingw/lib/SDL_mixer.dll /opt/xmingw/lib/jpeg.dll /opt/xmingw/lib/libpng1.dll /opt/xmingw/lib/zlib.dll /opt/xmingw/lib/libiberty.a $(PREFIX)
+	mkdir $(PREFIX)/docs
+	cp README CHANGELOG TODO $(PREFIX)/docs
+	zip -r $(PREFIX)-$(VERSION).zip $(PREFIX)
+	rm -rf $(PREFIX)
+	make -f Makefile.xmingw clean
+	@echo $(PREFIX)-$(VERSION).zip is now created and ready fow distribution.
+
+archive: all install clean

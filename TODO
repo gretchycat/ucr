@@ -1,0 +1,42 @@
+Ultima Classics Revisited
+
+0.1.3
+
+Overall
+*	fix missing pixmaps crashes
+*	verify compilation or create makefiles for OSX, solaris, BeOS, HP-UX, SGI, and everything else
+*	have it correctly detect missing sound/video components and warn the user (midi/mp3/mpg/png/xpm/etc processing)
+
+Akalabeth
+*	code cleanups and general debugging
+*	event sound effects
+
+Ultima 1
+*	fix dungeons/convert/rewrite for u1
+*	implement space
+*	implement mondain stuff
+*	event sound effects
+*	optimize graphics speed
+*	fix formulas for prices, attack, defense, etc
+*	fix the edge of map bugs (minor)
+
+Ultima 2
+*	everything
+
+Ultima 3
+*	everything
+
+Ultima 4
+*	have it run xu4
+
+Ultima 5
+*	have it run nu5
+
+Ultima 6
+*	have it run nuvie
+
+Ultima 7
+*	have it run exult
+
+Ultima 8
+*	have it run pentagram

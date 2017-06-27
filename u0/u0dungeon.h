@@ -1,0 +1,44 @@
+#include <SDL.h>
+//#include "u0types.h"
+
+void u0cleargr(SDL_Surface *s);
+void u0clear(SDL_Surface *s, U0_player *player);
+//void u0refresh(SDL_Surface *s, U0_player *p);
+//void u0refreshbuffer(SDL_Surface *s, U0_player *p);
+int U0_drawDngItem(SDL_Surface *screen, char **xpm, int minx, int miny, int maxx, int maxy);
+int U0_drawDngItemTruncX(SDL_Surface *screen, char **xpm, int minx, int miny, int maxx, int maxy);
+int U0_drawSkeleton(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawThief(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawRat(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawOrc(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawViper(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawCrawler(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawGremlin(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawMimic(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawDaemon(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawBalrog(SDL_Surface *screen, int b, int c, U0_player *player);
+int U0_drawChest(SDL_Surface *screen, U0_player *player);
+int U0_drawLadder(SDL_Surface *screen, U0_player *player);
+int U0_drawTopHole(SDL_Surface *screen, U0_player *player);
+int U0_drawBottomHole(SDL_Surface *screen, U0_player *player);
+int U0_drawLeftWallPerp(SDL_Surface *screen, U0_player *player);
+int U0_drawRightWallPerp(SDL_Surface *screen, U0_player *player);
+int U0_drawRightDoor0(SDL_Surface *screen, U0_player *player);
+int U0_drawLeftDoor0(SDL_Surface *screen, U0_player *player);
+int U0_drawRightDoor(SDL_Surface *screen, U0_player *player);
+int U0_drawLeftDoor(SDL_Surface *screen, U0_player *player);
+int U0_drawRightWall(SDL_Surface *screen, U0_player *player);
+int U0_drawLeftWall(SDL_Surface *screen, U0_player *player);
+int U0_drawMidDoor(SDL_Surface *screen, U0_player *player);
+int U0_drawMidWallPerp(SDL_Surface *screen, U0_player *player);
+int U0_drawDng(SDL_Surface *screen, U0_player *player, Tterminal *term);
+int U0_makeDungeon(U0_player *player);
+int U0_dng_up(SDL_Surface *screen, U0_player *player, Tterminal *term);
+int U0_dng_right(SDL_Surface *screen, U0_player *player, Tterminal *term);
+int U0_dng_left(SDL_Surface *screen, U0_player *player, Tterminal *term);
+int U0_dng_down(SDL_Surface *screen, U0_player *player, Tterminal *term);
+int U0_dng_e(SDL_Surface *screen, U0_player *player, Tterminal *term);
+int U0_dng_a(SDL_Surface *screen, U0_player *player, Tterminal *term);
+int U0_addMonsters(U0_player *player);
+void U0_draw3087(SDL_Surface *s, float c, float b, float dis, Uint32 cl);
+int u0_enemy_Attack(SDL_Surface *screen, U0_player *player, Tterminal *term);

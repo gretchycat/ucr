@@ -1,0 +1,162 @@
+Ultima Classics Revisited
+
+Ultima 0-3 rewrite for linux, mac, windows, and any unix varient that 
+supports libsdl. The rewrite uses the original data files and optional 
+updated sound and SVGA graphics. You must have the original games to play.
+Do not ask for copies; they're not that expensive. I and many other people feel
+that this series is well worth the ORIGINAL price, though you can now get it
+for $10.00 USD (+/-)
+
+http://ucr.emptyspaces.net
+Gregory Maculo	prmths@gmail.com
+
+.... took a long break to .. have kids and such.. :P
+
+02/10/2008
+Version 0.1.4
+
+*	Akalabeth 
+	Fully translated from the original apple basic code. If you see ways
+	of improving the code or make it more accurate, please let me know!
+	My initial goal was to keep everything intact, use the same
+	programming logic and so on; then upgrade the graphics and add
+	sound. So far it all seems pretty successful. I added music from
+	Underworld and Updated the world map graphics and added a graphics 
+	buffer to get rid of flickering. I also added a scroller function
+	for moving on the world map so that the animation is more fluid.
+	Also, i added multi-frame animation for walking for each of the 4
+	compass directions you can move in. You can choose between updated 
+	and old graphics by hitting F11. Sound can be toggled with F12.
+
+*	Ultima 1 
+	Reading all the original files (except for nif.bin - if anyone knows
+	what this file is for, PLEASE let me know!. From what I can tell,
+	it's used in only in mondain.exe). Save game format is identical to the
+	originals. Extracting lots of data from the exe's. An original copy of 
+	Ultima 1 is REQUIRED to play the game. A lot has been implemented, but
+	by far it's not finished!
+
+*	Ultima 2
+	Reading all maps and graphics files.
+
+*	Ultima 3
+	Reading all graphics files.
+
+*	Ultima 4
+	Reading all graphics files.
+
+*	Ultima 5
+	Reading all graphics files
+
+*	Ultima 6
+	Reading some graphics files
+
+*	Ultima Martian Dreams
+	Unimplemented
+
+*	Ultima Savage Empires
+	Unimplemented
+
+*	Ultima 7
+	check out the Exult project! -- maybe i'll add in a loader on the
+	game selection screen.
+
+*	Ultima Underworld 1
+	Unimplemented
+
+*	Ultima Underworld 2
+	Unimplemented
+
+*	Ultima 8
+	Unimplemented
+
+*	Ultima 9
+	hmmm...
+
+*	Ultima Online
+	:)
+
+******************************************************************************
+
+Notes
+
+	Keys
+		F11:	Toggle upgraded graphics in-game
+		F12:	Toggle sound in-game
+
+
+	Version Numbers
+		x.y.z
+		x denotes finished-ness or revision number
+		y denotes which ultima game is being worked on currently. If
+			Ultima 1 is being worked on, the version is 0.1.z
+			if Ultima 1 is complete and Ultima 2 is being worked
+			on, the version number is 0.2.z
+		z denotes a serial release number. The number has no bearing
+			on completeness or playability. for example, 0.1.0 is
+			the first release where U1 was being worked on and 
+			Akalabeth is mostly finished. 0.2.8 means Ultima 2
+			is mostly being worked on and it's the 9th release
+			of the 0.2.z series (0.2.0 is the first).
+		If the version is, for example, 0.3.5, that does not mean
+		all work on Akalabeth, U1, and U2 is stopped, only that
+		U0-U2 are fully playable and any other work on U0 and U2 will
+		mostly be bug-fix and feature upgrades.
+		
+******************************************************************************
+
+Installation
+
+	on a *nix system, just unarchive and run configure and make (or gmake)
+then make install. libsdl, sdl_mixer, and sdl_image are required. Timidity++ 
+is HIGHLY recommended for midi support. Some makefile modification 
+MIGHT be required (for lib paths and so on). This is a VERY early preview. As 
+of this  writing, I'm alone in writing this set of remakes and there's no real
+need for a complex makefile system.
+	to compile for a windows system, you need to run make (or gmake)
+with the parameter -f Makefile.xmingw . This option obviously requires
+xmingw, libsdl, sdl_image, and sdl_mixer installed.
+	Installing UCR on windows machines usually only requires unpacking.
+If something fails to run, put the dll files in the windows system or windows 
+system32 directory. 
+	After everything is installed, you may want to double check the ucr.conf
+file in ./etc/ucr.conf, /etc/ucr/ucr.conf or ~/.ucr/ucr.conf (on both *NIX
+and windows machines) Copy all the games you want to play where ucr.conf
+points or modify the ucr.conf accordingly.
+
+******************************************************************************
+
+Contact
+
+	If you have any questions or comments, email me or IM me
+
+ICQ: 		13477452
+AIM: 		prmths0
+jabber: 	prmths@gmail.com
+email: 		prmths@gmail.com
+
+******************************************************************************
+
+Acknowledgements
+
+	Akalabeth, and all the Ultima series are property of Richard Garriott
+and Origin Systems, Inc. I claim no connection to anyone. If I'm doing anything
+illegal or pissing anyone off, please let me know and I'll stop.
+
+If anyone wants to help me out with the project, please let me know! I need
+artists to help with the updated graphics, programmers, testers, alternate
+platform testers (ppc, arm, sh4, osx solaris, irix, hp-ux, aix, whatever), and
+whoever else wants to help.
+
+Special thanks to:
+Phatcat for the town NPC's in Ultima 1
+Shakken for the world map Avatar tiles in Akalabeth
+Sheng Long Gradilla for the Akalabeth title image, testing and spreading the word
+wintermute for the windows mingw Makefile
+ORIGIN and Lord British for creating this epic series of games
+
+******************************************************************************
+
+Notable Projects
+
+...
