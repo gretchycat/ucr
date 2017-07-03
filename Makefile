@@ -20,7 +20,7 @@ PREFIX = /usr/games/ucr
 # as Pascal.
 
 
-LDFLAGS = -DLINUX `sdl-config --cflags --libs` -L/usr/X11R6/lib -I/usr/local/include/SDL_mixer  -I/usr/local/include/SDL_image -lSDL_mixer -lSDL_image
+LDFLAGS = -DLINUX `sdl-config --cflags --libs` -lSDL_mixer -lSDL_image
 
 
 CC = gcc
