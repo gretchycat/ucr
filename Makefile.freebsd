@@ -24,7 +24,7 @@ LDFLAGS = -DLINUX `sdl11-config --cflags --libs` -L/usr/X11R6/lib -I/usr/local/i
 
 
 CC = gcc
-CFLAGS = -Wall -O3 -ffast-math `sdl11-config --cflags` -I/usr/local/include/SDL_mixer -I/usr/local/include/SDL_image
+CFLAGS = -Wall -O3 -ffast-math `sdl11-config --cflags` -I/usr/local/include/SDL -I/usr/local/include/SDL_mixer -I/usr/local/include/SDL_image
 
 CXX = g++
 CXXFLAGS = 
